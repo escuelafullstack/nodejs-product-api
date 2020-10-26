@@ -9,6 +9,18 @@ const getProducts = async (req, res) => {
     })
 }
 
+const getProductById = async (req, res) => {
+    const { id } = req.params
+
+    const product = await Product.findById(id).lean()
+
+    res.status(200).json({
+        success: true,
+        data: product
+    })
+}
+
 module.exports = {
-    getProducts
+    getProducts,
+    getProductById
 }

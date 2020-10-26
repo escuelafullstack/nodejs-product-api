@@ -5,5 +5,6 @@ const app = express()
 const products = require('../../controllers/products')
 
 app.get('/getProducts', products.getProducts)
+app.get('/getProductById/:id', products.getProductById)
 
 module.exports = app

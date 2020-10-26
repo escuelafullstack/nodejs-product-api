@@ -32,8 +32,20 @@ const updateProduct = async (req, res) => {
     })
 }
 
+const createProduct = async (req, res) => {
+    const newProduct = req.body
+
+    const createdProduct = await Product.create(newProduct)
+
+    res.status(200).json({
+        success: true,
+        data: createdProduct
+    })
+}
+
 module.exports = {
     getProducts,
     getProductById,
-    updateProduct
+    updateProduct,
+    createProduct
 }

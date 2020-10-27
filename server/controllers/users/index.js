@@ -24,61 +24,85 @@ const getUsernames = (req, res) => {
 }
 
 const createUser = async (req, res) => {
-    const newUser = req.body
+    try {
+        const newUser = req.body
 
-    const createdUser = await User.create(newUser)
+        const createdUser = await User.create(newUser)
 
-    res.status(200).json({
-        success: true,
-        data: createdUser
-    })
+        res.status(201).json({
+            success: true,
+            data: createdUser,
+            message: createdUser ? 'El usuario se ha creado correctamente' : 'No se pudo crear el usuario'
+        })
+    } catch (error) {
+        console.log('ERROR: ', error)    
+    }
 }
 
 const getUsers = async (req, res) => {
-    
-    const users = await User.find()
+    try {
+        const users = await User.find()
 
-    res.status(200).json({
-        success: true,
-        data: users
-    })
+        res.status(200).json({
+            success: true,
+            data: users,
+            message: users ? 'Los usuarios se han obtenido correctamente' : 'No se pudieron obtener los usuarios'
+        })
+
+    } catch (error) {
+        console.log('ERROR: ', error)
+    }
 }
 
 const getUserById = async (req, res) => {
-    const { id } = req.params
+    try {
+        const { id } = req.params
 
-    const user = await User.findById(id)
-
-    res.status(200).json({
-        success: true,
-        data: user
-    })
+        const user = await User.findById(id)
+    
+        res.status(200).json({
+            success: true,
+            data: user, 
+            message: user ? 'El usuario se ha obtenido correctamente' : 'No se pudo obtener el usuario solicitado'
+        }) 
+    } catch (error) {
+        console.log('ERROR: ', error)
+    }
 }
 
 const updateUserById = async (req, res) => {
-    const { id } = req.params
+    try {
+        const { id } = req.params
 
-    const newUser = req.body
+        const newUser = req.body
 
-    const updatedUser = await User.findByIdAndUpdate(id, newUser, { new: true })
+        const updatedUser = await User.findByIdAndUpdate(id, newUser, { new: true })
 
-    res.status(200).json({
-        success: true,
-        data: updatedUser
-    })
+        res.status(200).json({
+            success: true,
+            data: updatedUser,
+            message: updatedUser ? 'El usuario se actualizo correctamente' : 'El usuario no pude ser actualizado'
+        })
+
+    } catch (error) {
+        console.log('ERROR: ', error)
+    }
 }
 
 const deleteUserById = async (req, res) => {
-    const { id } = req.params
+    try {
+        const { id } = req.params
 
-    const user = await User.findByIdAndDelete(id)
+        const user = await User.findByIdAndDelete(id)
 
-    res.status(200).json({
-        success: true,
-        data: user,
-        message: 'El usuario se eliminó correctamente'
-    })
-
+        res.status(200).json({
+            success: true,
+            data: user,
+            message: user ? 'El usuario se eliminó correctamente' : 'El usuario no pudo ser eliminado'
+        })
+    } catch(error) {
+        console.log('ERROR: ', error)
+    }
 }
 
 module.exports = {

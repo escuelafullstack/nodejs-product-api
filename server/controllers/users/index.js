@@ -68,10 +68,24 @@ const updateUserById = async (req, res) => {
     })
 }
 
+const deleteUserById = async (req, res) => {
+    const { id } = req.params
+
+    const user = await User.findByIdAndDelete(id)
+
+    res.status(200).json({
+        success: true,
+        data: user,
+        message: 'El usuario se eliminó correctamente'
+    })
+
+}
+
 module.exports = {
     getUsernames,
     createUser,
     getUsers,
     getUserById,
-    updateUserById
+    updateUserById,
+    deleteUserById
 }

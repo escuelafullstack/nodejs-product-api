@@ -55,9 +55,23 @@ const getUserById = async (req, res) => {
     })
 }
 
+const updateUserById = async (req, res) => {
+    const { id } = req.params
+
+    const newUser = req.body
+
+    const updatedUser = await User.findByIdAndUpdate(id, newUser, { new: true })
+
+    res.status(200).json({
+        success: true,
+        data: updatedUser
+    })
+}
+
 module.exports = {
     getUsernames,
     createUser,
     getUsers,
-    getUserById
+    getUserById,
+    updateUserById
 }

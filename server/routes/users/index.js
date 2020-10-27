@@ -6,5 +6,6 @@ const { users } = require('../../controllers')
 app.get('/getUsernames', users.getUsernames)
 
 app.post('/user', users.createUser)
+app.get('/users', users.getUsers)
 
 module.exports = app

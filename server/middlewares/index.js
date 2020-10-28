@@ -23,6 +23,21 @@ const verifyToken = (req, res, next) => {
     }
 }
 
+const verifyRole = (req, res, next) => {
+    const usuario = req.usuario
+
+    if(usuario.role == 'ADMIN_ROLE') {
+        next()
+    } else {
+        res.json({
+            success: true,
+            data: null,
+            message: 'El usuario no es un ADMINISTRADOR'
+        })
+    }
+}
+
 module.exports = {
-    verifyToken
+    verifyToken, 
+    verifyRole
 }
